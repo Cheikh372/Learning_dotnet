@@ -1,3 +1,6 @@
 [submodule "Grpc"]
 	path = Grpc
 	url = https://github.com/Cheikh372/Learning_dotnet.git
+[submodule "secondModule"]
+	path = secondModule
+	url = https://github.com/Cheikh372/Learning_dotnet.git

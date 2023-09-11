@@ -1,6 +1,9 @@
-[submodule "Grpc"]
-	path = Grpc
+[submodule "three"]
+	path = three
 	url = https://github.com/Cheikh372/Learning_dotnet.git
-[submodule "secondModule"]
-	path = secondModule
+[submodule "threeSS"]
+	path = threeSS
 	url = https://github.com/Cheikh372/Learning_dotnet.git
+[submodule "threeSSs"]
+	path = threeSSs
+	url = ./

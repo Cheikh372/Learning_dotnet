@@ -1,0 +1,1 @@
+C:\Learning_dotnet\MauiApp1\MauiApp1\MauiApp1.csproj;x64

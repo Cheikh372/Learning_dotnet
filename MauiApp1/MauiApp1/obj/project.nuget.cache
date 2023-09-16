@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "WhsYOeTCo1LxGMz2+oqKQRUvsD95M9/jQX82drmuJXd85H4yogLeJvwFpkwj1m7ts0cYEL3qRaoQug1RFa2frg==",
+  "dgSpecHash": "bZXxXMtrxTJBG5ePQ+SpTosSkVEAoM6HaDOHHCIwaWR4cMyekdskTQJT+iOCKpVSpqM4n61UG+3XwnU8akRSRw==",
   "success": true,
   "projectFilePath": "C:\\Learning_dotnet\\MauiApp1\\MauiApp1\\MauiApp1.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Lenovo\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
@@ -19,6 +20,7 @@
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.maui.graphics.win2d.winui.desktop\\7.0.92\\microsoft.maui.graphics.win2d.winui.desktop.7.0.92.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages\\microsoft.windows.sdk.buildtools\\10.0.22621.756\\microsoft.windows.sdk.buildtools.10.0.22621.756.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.windowsappsdk\\1.2.221209.1\\microsoft.windowsappsdk.1.2.221209.1.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\xamarin.android.glide\\4.13.2.2\\xamarin.android.glide.4.13.2.2.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\xamarin.android.glide.annotations\\4.13.2.2\\xamarin.android.glide.annotations.4.13.2.2.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\xamarin.android.glide.disklrucache\\4.13.2.2\\xamarin.android.glide.disklrucache.4.13.2.2.nupkg.sha512",

@@ -1,0 +1,5 @@
+obj\Release\net7.0\Protos/Category.cs \
+obj\Release\net7.0\Protos/CategoryGrpc.cs: google/api/http.proto\
+ C:/Users/Lenovo/.nuget/packages/grpc.tools/2.57.0/build/native/include/google/protobuf/descriptor.proto\
+ google/api/annotations.proto\
+ Protos/Category.proto

@@ -16,6 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(db => db.UseSqlServer(conn));
 // Register Category Service
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+// Register PDF Signature Service
+builder.Services.AddScoped<PdfSignatureService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

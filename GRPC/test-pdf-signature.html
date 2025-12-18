@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Signature PDF Électronique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .loading {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            color: #666;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: -2px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .api-url {
+            margin-bottom: 20px;
+        }
+
+        .api-url input {
+            font-family: monospace;
+        }
+
+        .signature-list {
+            margin-top: 15px;
+        }
+
+        .signature-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .signature-item.valid {
+            border-left-color: #28a745;
+        }
+
+        .signature-item.invalid {
+            border-left-color: #dc3545;
+        }
+
+        .signature-detail {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .signature-detail strong {
+            color: #333;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 Signature PDF Électronique</h1>
+        <p class="subtitle">Service de signature électronique pour le Sénégal</p>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('sign')">Signer un PDF</div>
+            <div class="tab" onclick="switchTab('verify')">Vérifier</div>
+            <div class="tab" onclick="switchTab('default')">Signature par défaut</div>
+        </div>
+
+        <!-- Configuration de l'API -->
+        <div class="api-url">
+            <label>URL de l'API:</label>
+            <input type="text" id="apiUrl" value="https://localhost:7000" placeholder="https://localhost:7000">
+        </div>
+
+        <!-- Onglet: Signer avec certificat personnalisé -->
+        <div id="tab-sign" class="tab-content active">
+            <form id="signForm">
+                <div class="form-group">
+                    <label>Fichier PDF <span class="required">*</span></label>
+                    <input type="file" id="pdfFile" accept=".pdf" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Certificat (.pfx) <span class="required">*</span></label>
+                    <input type="file" id="certFile" accept=".pfx" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Mot de passe du certificat <span class="required">*</span></label>
+                    <input type="password" id="certPassword" required placeholder="Entrez le mot de passe">
+                </div>
+
+                <div class="form-group">
+                    <label>Nom du signataire</label>
+                    <input type="text" id="signerName" placeholder="Ex: Jean Dupont">
+                </div>
+
+                <div class="form-group">
+                    <label>Lieu</label>
+                    <input type="text" id="location" value="Dakar, Sénégal" placeholder="Ex: Dakar, Sénégal">
+                </div>
+
+                <div class="form-group">
+                    <label>Raison</label>
+                    <input type="text" id="reason" value="Document signé électroniquement" placeholder="Ex: Approbation du contrat">
+                </div>
+
+                <button type="submit" class="btn">Signer le PDF</button>
+            </form>
+        </div>
+
+        <!-- Onglet: Vérifier les signatures -->
+        <div id="tab-verify" class="tab-content">
+            <form id="verifyForm">
+                <div class="form-group">
+                    <label>Fichier PDF à vérifier <span class="required">*</span></label>
+                    <input type="file" id="verifyPdfFile" accept=".pdf" required>
+                </div>
+
+                <button type="submit" class="btn btn-info">Vérifier les signatures</button>
+            </form>
+
+            <div id="signatureList" class="signature-list"></div>
+        </div>
+
+        <!-- Onglet: Signature avec certificat par défaut -->
+        <div id="tab-default" class="tab-content">
+            <form id="defaultSignForm">
+                <div class="form-group">
+                    <label>Fichier PDF <span class="required">*</span></label>
+                    <input type="file" id="defaultPdfFile" accept=".pdf" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nom du signataire</label>
+                    <input type="text" id="defaultSignerName" placeholder="Ex: Service RH">
+                </div>
+
+                <div class="form-group">
+                    <label>Lieu</label>
+                    <input type="text" id="defaultLocation" placeholder="Ex: Dakar">
+                </div>
+
+                <div class="form-group">
+                    <label>Raison</label>
+                    <input type="text" id="defaultReason" placeholder="Ex: Validation finale">
+                </div>
+
+                <button type="submit" class="btn btn-secondary">Signer avec certificat par défaut</button>
+            </form>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px;">Traitement en cours...</p>
+        </div>
+
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Masquer tous les contenus
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Désactiver tous les onglets
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Activer l'onglet sélectionné
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Masquer les messages
+            hideStatus();
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            hideStatus();
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = 'status ' + type;
+            statusDiv.style.display = 'block';
+            hideLoading();
+        }
+
+        function hideStatus() {
+            document.getElementById('status').style.display = 'none';
+        }
+
+        function getApiUrl() {
+            return document.getElementById('apiUrl').value.replace(/\/$/, '');
+        }
+
+        // Formulaire de signature avec certificat personnalisé
+        document.getElementById('signForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            showLoading();
+
+            const formData = new FormData();
+            formData.append('PdfFile', document.getElementById('pdfFile').files[0]);
+            formData.append('CertificateFile', document.getElementById('certFile').files[0]);
+            formData.append('CertificatePassword', document.getElementById('certPassword').value);
+            
+            const signerName = document.getElementById('signerName').value;
+            const location = document.getElementById('location').value;
+            const reason = document.getElementById('reason').value;
+            
+            if (signerName) formData.append('SignerName', signerName);
+            if (location) formData.append('Location', location);
+            if (reason) formData.append('Reason', reason);
+
+            try {
+                const response = await fetch(`${getApiUrl()}/api/pdfsignature/sign`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'document_signed.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+
+                    showStatus('✅ PDF signé avec succès! Le téléchargement va commencer...', 'success');
+                } else {
+                    const error = await response.text();
+                    showStatus('❌ Erreur: ' + error, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Erreur de connexion: ' + error.message, 'error');
+            }
+        });
+
+        // Formulaire de vérification
+        document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            showLoading();
+
+            const formData = new FormData();
+            formData.append('pdfFile', document.getElementById('verifyPdfFile').files[0]);
+
+            try {
+                const response = await fetch(`${getApiUrl()}/api/pdfsignature/verify`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const signatures = await response.json();
+                    const listDiv = document.getElementById('signatureList');
+                    
+                    if (signatures.length === 0) {
+                        showStatus('ℹ️ Aucune signature trouvée dans ce document.', 'info');
+                        listDiv.innerHTML = '';
+                    } else {
+                        showStatus(`✅ ${signatures.length} signature(s) trouvée(s).`, 'success');
+                        
+                        listDiv.innerHTML = signatures.map(sig => `
+                            <div class="signature-item ${sig.isValid ? 'valid' : 'invalid'}">
+                                <div class="signature-detail">
+                                    <strong>Signataire:</strong> ${sig.signerName || 'N/A'}
+                                </div>
+                                <div class="signature-detail">
+                                    <strong>Date:</strong> ${new Date(sig.signDate).toLocaleString('fr-FR')}
+                                </div>
+                                <div class="signature-detail">
+                                    <strong>Raison:</strong> ${sig.reason || 'N/A'}
+                                </div>
+                                <div class="signature-detail">
+                                    <strong>Lieu:</strong> ${sig.location || 'N/A'}
+                                </div>
+                                <div class="signature-detail">
+                                    <strong>Statut:</strong> ${sig.isValid ? '✅ Valide' : '❌ Invalide'}
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                } else {
+                    const error = await response.text();
+                    showStatus('❌ Erreur: ' + error, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Erreur de connexion: ' + error.message, 'error');
+            }
+        });
+
+        // Formulaire de signature avec certificat par défaut
+        document.getElementById('defaultSignForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            showLoading();
+
+            const formData = new FormData();
+            formData.append('PdfFile', document.getElementById('defaultPdfFile').files[0]);
+            
+            const signerName = document.getElementById('defaultSignerName').value;
+            const location = document.getElementById('defaultLocation').value;
+            const reason = document.getElementById('defaultReason').value;
+            
+            if (signerName) formData.append('SignerName', signerName);
+            if (location) formData.append('Location', location);
+            if (reason) formData.append('Reason', reason);
+
+            try {
+                const response = await fetch(`${getApiUrl()}/api/pdfsignature/sign-with-default-certificate`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'document_signed.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+
+                    showStatus('✅ PDF signé avec succès! Le téléchargement va commencer...', 'success');
+                } else {
+                    const error = await response.text();
+                    showStatus('❌ Erreur: ' + error, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Erreur de connexion: ' + error.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

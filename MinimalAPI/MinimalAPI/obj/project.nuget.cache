@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "MsFpVf8A/LZhv4JDlbRSXJVQ+PDDCLU/r7m1rnCIz2q+5WWUGiLMuUdMpLvQzlamRX0DTXHxdwdYMhXFrrt4NQ==",
+  "dgSpecHash": "Fy5B5CbAQBJ0cZYoUH9JZiAS7P8/zTHVjkIxcLR6ifXxEopODiY0yhIiTqqUVo5m6iZoKq+vvihpE/0SQrDYpA==",
   "success": true,
-  "projectFilePath": "C:\\Learning_dotnet\\MinimalAPI\\MinimalAPI\\MinimalAPI.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/workspace/MinimalAPI/MinimalAPI/MinimalAPI.csproj",
+  "expectedPackageFiles": [
+    "/home/ubuntu/.nuget/packages/microsoft.netcore.app.ref/6.0.36/microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.36/microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.36/microsoft.netcore.app.host.linux-x64.6.0.36.nupkg.sha512"
+  ],
   "logs": []
 }
